@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Assets/OpenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 35
+font_data = SubResource( 1 )
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends VBoxContainer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Button_pressed():
+	get_tree().change_scene(\"res://Game.tscn\")
+
+
+func _on_Button2_pressed():
+	print(\"COMING SOON\")
+
+
+func _on_Button3_pressed():
+	get_tree().quit()
+"
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://Assets/OpenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 25
+font_data = SubResource( 3 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://Assets/OpenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 25
+font_data = SubResource( 7 )
+
+[sub_resource type="DynamicFontData" id=10]
+font_path = "res://Assets/OpenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=11]
+size = 25
+font_data = SubResource( 10 )
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 1280.0
+margin_bottom = 800.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1280.0
+margin_bottom = 800.0
+custom_constants/separation = 100
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 214.0
+margin_right = 1280.0
+margin_bottom = 263.0
+custom_fonts/font = SubResource( 2 )
+text = "Herobrine Card Game"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 363.0
+margin_right = 1280.0
+margin_bottom = 586.0
+custom_constants/margin_right = 200
+custom_constants/margin_left = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+margin_left = 200.0
+margin_right = 1080.0
+margin_bottom = 223.0
+custom_constants/separation = 50
+script = SubResource( 6 )
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_right = 880.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 4 )
+text = "Jouer"
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 91.0
+margin_right = 880.0
+margin_bottom = 132.0
+custom_fonts/font = SubResource( 8 )
+text = "Deck"
+
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 182.0
+margin_right = 880.0
+margin_bottom = 223.0
+custom_fonts/font = SubResource( 11 )
+text = "Quitter"
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button" to="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button2" to="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" method="_on_Button2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button3" to="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" method="_on_Button3_pressed"]

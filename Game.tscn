@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Card.tscn" type="PackedScene" id=1]
+
+[node name="Game" type="Node2D"]
+
+[node name="Card" parent="." instance=ExtResource( 1 )]
+position = Vector2( 197.99, 156.978 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Card2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 548.715, 154.149 )
+scale = Vector2( 0.5, 0.5 )
+card = "lyos"
+
+[node name="Card3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 840.043, 154.149 )
+scale = Vector2( 0.5, 0.5 )
+card = "hugo"
+
+[node name="Card4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 373.352, 429.921 )
+scale = Vector2( 0.5, 0.5 )
+card = "eleisya"
+
+[node name="Card5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 708.521, 431.335 )
+scale = Vector2( 0.5, 0.5 )
+card = "fiano"

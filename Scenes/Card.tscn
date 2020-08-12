@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Card.gd" type="Script" id=1]
+[ext_resource path="res://Assets/BaseCard.png" type="Texture" id=2]
+
+[node name="Card" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = -131.979
+margin_top = -190.879
+margin_right = 0.020813
+margin_bottom = -164.879
+rect_scale = Vector2( 2, 2 )
+text = "Name"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
