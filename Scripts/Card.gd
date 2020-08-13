@@ -2,6 +2,7 @@ extends Node2D
 
 export var card = "sylkabe"
 var card_json = null
+var mouse_subjective_position = "out"
 
 func _ready():
 	card_json = load_card(card)
@@ -38,3 +39,16 @@ func load_texture():
 			get_node("Sprite").set_texture(texture)
 			return (1)
 	return (0)
+
+
+func _on_Area2D_mouse_entered():
+	var scale = Vector2(1.2, 1.2)
+	mouse_subjective_position = "in"
+	print_debug("Enter " + card_json["name"])
+	get_node("Sprite").set_scale(scale)
+
+func _on_Area2D_mouse_exited():
+	var scale = Vector2(1, 1)
+	mouse_subjective_position = "out"
+	print_debug("Out " + card_json["name"])
+	get_node("Sprite").set_scale(scale)
