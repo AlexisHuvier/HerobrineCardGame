@@ -7,7 +7,7 @@ font_path = "res://Assets/OpenSans-Regular.ttf"
 size = 35
 font_data = SubResource( 1 )
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=3]
 script/source = "extends VBoxContainer
 
 
@@ -38,26 +38,26 @@ func _on_Button3_pressed():
 	get_tree().quit()
 "
 
-[sub_resource type="DynamicFontData" id=3]
+[sub_resource type="DynamicFontData" id=4]
 font_path = "res://Assets/OpenSans-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 25
-font_data = SubResource( 3 )
+font_data = SubResource( 4 )
 
-[sub_resource type="DynamicFontData" id=7]
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://Assets/OpenSans-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 size = 25
-font_data = SubResource( 7 )
+font_data = SubResource( 6 )
 
-[sub_resource type="DynamicFontData" id=10]
+[sub_resource type="DynamicFontData" id=8]
 font_path = "res://Assets/OpenSans-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=9]
 size = 25
-font_data = SubResource( 10 )
+font_data = SubResource( 8 )
 
 [node name="MainMenu" type="Node2D"]
 
@@ -97,26 +97,26 @@ margin_left = 200.0
 margin_right = 1080.0
 margin_bottom = 223.0
 custom_constants/separation = 50
-script = SubResource( 6 )
+script = SubResource( 3 )
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_right = 880.0
 margin_bottom = 41.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Jouer"
 
 [node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 91.0
 margin_right = 880.0
 margin_bottom = 132.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 7 )
 text = "Deck"
 
 [node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 182.0
 margin_right = 880.0
 margin_bottom = 223.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 9 )
 text = "Quitter"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button" to="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button2" to="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" method="_on_Button2_pressed"]
