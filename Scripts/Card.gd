@@ -6,7 +6,7 @@ var card_json = null
 func _ready():
 	card_json = load_card(card)
 	if card_json != null:
-		if !(load_texture(card_json)):
+		if !(load_texture()):
 			get_node("Title").set_text(card_json["name"])
 		else:
 			get_node("Title").set_text("")
@@ -26,11 +26,12 @@ func load_card(name):
 		else:
 			return json.result
 
-func load_texture(card_json):
+func load_texture():
 	var texture = ImageTexture.new()
-	if ("texture" in card_json):
+	if ("texture" in card_json && card_json["texture"] != null):
 		var image_path = "res://Assets/" + card_json["texture"] + ".png"
-		if texture.load(image_path) != OK:
+		texture = load(image_path)
+		if texture == null:
 			push_error("[Error] Opening File failed (" + image_path + ")")
 			get_tree().quit()
 		else:
