@@ -57,3 +57,9 @@ func create_card(name, x = null, y = null, scale=0.5, rotation=0):
 	card.scale = Vector2(scale, scale)
 	card.rotation_degrees = rotation
 	return card
+
+
+func _on_Button_pressed():
+	if get_tree().change_scene("res://Main.tscn")!= OK:
+		push_error("[Error] Loading Scene failed (Main)")
+		get_tree().quit()
