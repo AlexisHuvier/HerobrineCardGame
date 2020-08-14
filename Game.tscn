@@ -27,3 +27,8 @@ card = "eleisya"
 position = Vector2( 708.521, 431.335 )
 scale = Vector2( 0.5, 0.5 )
 card = "fiano"
+
+[node name="Card6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 994.576, 429.216 )
+scale = Vector2( 0.5, 0.5 )
+card = "aehrin"
