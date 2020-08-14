@@ -7,6 +7,14 @@ onready var deckcards = get_node("DeckCards")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	render()
+
+func render():
+	for child in cards.get_children():
+		child.queue_free()
+	for child in deckcards.get_children():
+		child.queue_free()
+	
 	for cardid in deck.cards.size():
 		var card = create_card(deck.cards[cardid], 115 + cardid % 5 * 175, 200 + cardid / 5 * 225)
 		if cardid in deck.deck:
@@ -19,7 +27,20 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
-			print(event.position)
+			for cardid in range(cards.get_child_count()):
+				var card = cards.get_child(cardid)
+				var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
+				if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event.position):
+					var find = false
+					for cid in range(deck.deck.size()):
+						if deck.deck[cid] == cardid:
+							deck.deck.remove(cid)
+							find = true
+							break
+					if not find:
+						deck.deck.append(cardid)
+					render()
+					break
 		elif event.button_index == BUTTON_WHEEL_UP:
 			if event.position.x < 1000:
 				if cards.position.y < 0:
@@ -29,19 +50,20 @@ func _input(event):
 					deckcards.position.y += 10
 		elif event.button_index == BUTTON_WHEEL_DOWN:
 			if event.position.x < 1000:
-				if 800 < (200 + int((deck.cards.size() - 1) / 5) * 255) + (420 * 0.25) + cards.position.y :
+				if 800 < cards.get_child(cards.get_child_count() - 1).position.y + (420 * 0.25) + cards.position.y + 10 :
 					cards.position.y -= 10
 			else:
-				if 800 < (200 + (deck.deck.size() - 1) * 75) + 10 + (420 * 0.25) + deckcards.position.y:
+				if 800 < deckcards.get_child(deckcards.get_child_count() - 1).position.y + (420 * 0.25) + deckcards.position.y + 10:
 					deckcards.position.y -= 10
 
 func load_deck():
 	var file = File.new()
 	if file.open("res://Data/player.json", file.READ) != OK:
-		push_error("[Error] Opening File failed (" + "res://Data/player.json" + ")")
+		push_error("[Error] Opening File failed (res://Data/player.json)")
 		get_tree().quit()
 	else:
 		var text = file.get_as_text()
+		file.close()
 		var json = JSON.parse(text)
 		if json.error != OK:
 			push_error("[Error] JSON Parsing failed : (" + json.error_line + ") " + json.error_string)
@@ -60,6 +82,15 @@ func create_card(name, x = null, y = null, scale=0.5, rotation=0):
 
 
 func _on_Button_pressed():
+	var file = File.new()
+	if file.open("res://Data/player.json", file.WRITE) != OK:
+		push_error("[Error] Opening File failed (res://Data/player.json)")
+		get_tree().quit()
+	else:
+		var text = JSON.print(deck)
+		file.store_string(text)
+		file.close()
+	
 	if get_tree().change_scene("res://Main.tscn")!= OK:
 		push_error("[Error] Loading Scene failed (Main)")
 		get_tree().quit()

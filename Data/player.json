@@ -1,7 +1,1 @@
-{
-    "cards": [
-        "sylkabe", "sylkabe", "lyos", "fiano", "hugo",
-        "eleisya", "sylkabe", "lyos"
-    ],
-    "deck": [0, 1, 3]
-}
+{"cards":["sylkabe","sylkabe","lyos","fiano","hugo","eleisya"],"deck":[2,3]}
