@@ -2,6 +2,7 @@ extends Node2D
 
 onready var deck = load_deck()
 onready var cards = get_node("Cards")
+onready var deckcards = get_node("DeckCards")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,8 +13,8 @@ func _ready():
 			card.get_node("Sprite").modulate = Color(0.5, 0.5, 0.5)
 		cards.add_child(card)
 		
-func _process(delta):
-	if Input.is_action_just_released("scroll_up"):
+	for cardid in deck.deck.size():
+		deckcards.add_child(create_card(deck.cards[deck.deck[cardid]], 1100, 200 + cardid * 75))
 		if cards.position.y <= 0:
 			cards.position.y += 10
 	elif Input.is_action_just_released("scroll_down"):
