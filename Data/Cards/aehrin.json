@@ -2,5 +2,15 @@
     "name": "Aehrin",
     "texture": "aehrin_card",
     "attack": 1,
-    "defense": 1
+    "defense": 1,
+    "infos_display": {
+        "Informations": {
+            "Le personnage": "Aehrin est une chimère.",
+            "Histoire": "Elle est triste",
+            "Avantages": "Bonus de combat"
+        },
+        "Stats": {
+            "Statistiques": "Attaque: 1\nDefense: 1"
+        }
+    }
 }
