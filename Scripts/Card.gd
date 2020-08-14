@@ -7,11 +7,12 @@ var card_json = null
 #Actual cursor position compared to the card:
 var mouse_subjective_position = "out"
 #Save general scale:
-var save_card_scale = scale
+var save_card_scale
 #Save info_button scale:
 var save_info_button_scale = null
 
 func _ready():
+	save_card_scale = get_scale()
 	save_info_button_scale = get_node("Sprite/InfoButtonSprite").get_scale()
 	card_json = load_card(card)
 	if card_json != null:
@@ -50,19 +51,17 @@ func load_texture():
 
 
 func _on_Area2D_mouse_entered(): #mouse enter card area
-	var node = get_node("Sprite")
 	var multi = 1.2
 	var scale = save_card_scale
 	scale.x *= multi
 	scale.y *= multi
 	mouse_subjective_position = "in_card"
-	node.set_scale(scale)
+	set_scale(scale)
 
 func _on_Area2D_mouse_exited(): #mouse exit card area
-	var node = get_node("Sprite")
 	var scale = save_card_scale
 	mouse_subjective_position = "out"
-	node.set_scale(scale)
+	set_scale(scale)
 
 
 func _on_InfoButtonArea2D_mouse_entered():
@@ -74,9 +73,13 @@ func _on_InfoButtonArea2D_mouse_entered():
 	mouse_subjective_position = "in_info"
 	node.set_scale(scale)
 
-
 func _on_InfoButtonArea2D_mouse_exited():
 	var node = get_node("Sprite/InfoButtonSprite")
 	var scale = save_info_button_scale
 	mouse_subjective_position = "in_card"
 	node.set_scale(scale)
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton && mouse_subjective_position == "in_info":
+		var info = load("res://Scenes/TabsBox.tscn").instance()
+		get_parent().add_child(info)
