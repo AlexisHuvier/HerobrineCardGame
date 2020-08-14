@@ -7,7 +7,10 @@ onready var cards = get_node("Cards")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for cardid in deck.cards.size():
-		cards.add_child(create_card(deck.cards[cardid], 100 + cardid % 5 * 175, 115 + cardid / 5 * 225))
+		var card = create_card(deck.cards[cardid], 115 + cardid % 5 * 175, 200 + cardid / 5 * 225)
+		if cardid in deck.deck:
+			card.get_node("Sprite").modulate = Color(0.5, 0.5, 0.5)
+		cards.add_child(card)
 		
 func _process(delta):
 	if Input.is_action_just_released("scroll_up"):
