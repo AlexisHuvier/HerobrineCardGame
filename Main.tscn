@@ -27,11 +27,15 @@ func _ready():
 
 
 func _on_Button_pressed():
-	get_tree().change_scene(\"res://Game.tscn\")
+	if get_tree().change_scene(\"res://Game.tscn\") != OK:
+		push_error(\"[Error] Loading Scene failed (Game)\")
+		get_tree().quit()
 
 
 func _on_Button2_pressed():
-	print(\"COMING SOON\")
+	if get_tree().change_scene(\"res://Scenes/Deck.tscn\")!= OK:
+		push_error(\"[Error] Loading Scene failed (Scenes/Deck)\")
+		get_tree().quit()
 
 
 func _on_Button3_pressed():
