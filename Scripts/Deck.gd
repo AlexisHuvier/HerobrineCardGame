@@ -15,11 +15,25 @@ func _ready():
 		
 	for cardid in deck.deck.size():
 		deckcards.add_child(create_card(deck.cards[deck.deck[cardid]], 1100, 200 + cardid * 75))
-		if cards.position.y <= 0:
-			cards.position.y += 10
-	elif Input.is_action_just_released("scroll_down"):
-		if 800 <= (115 + int((deck.cards.size() - 1) / 5) * 255) + 10 + cards.position.y :
-			cards.position.y -= 10
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.doubleclick:
+			print(event.position)
+		elif event.button_index == BUTTON_WHEEL_UP:
+			if event.position.x < 1000:
+				if cards.position.y < 0:
+					cards.position.y += 10
+			else:
+				if deckcards.position.y < 0:
+					deckcards.position.y += 10
+		elif event.button_index == BUTTON_WHEEL_DOWN:
+			if event.position.x < 1000:
+				if 800 < (200 + int((deck.cards.size() - 1) / 5) * 255) + (420 * 0.25) + cards.position.y :
+					cards.position.y -= 10
+			else:
+				if 800 < (200 + (deck.deck.size() - 1) * 75) + 10 + (420 * 0.25) + deckcards.position.y:
+					deckcards.position.y -= 10
 
 func load_deck():
 	var file = File.new()
