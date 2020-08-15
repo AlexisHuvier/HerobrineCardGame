@@ -11,6 +11,7 @@ extents = Vector2( 144, 208 )
 radius = 128.0
 
 [node name="Card" type="Node2D"]
+position = Vector2( 392, 296 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
