@@ -11,6 +11,11 @@ func load_tabs_window(tabs_data):
 		get_node("TabContainer").add_child(new_tab)
 		load_para(tab_name, tabs_data[tab_name])
 	get_node("TabContainer/Tabs").queue_free()
+	var windows_size = OS.get_real_window_size()
+	var pos = Vector2()
+	pos.x = windows_size.x / 2 - get_node("ColorRect").size
+	print_debug(pos)
+	position = pos
 
 func load_para(tab_name, paragraphs_data):
 	var new_para
