@@ -82,15 +82,20 @@ func create_card(name, x = null, y = null, scale=0.5, rotation=0):
 
 
 func _on_Button_pressed():
-	var file = File.new()
-	if file.open("res://Data/player.json", file.WRITE) != OK:
-		push_error("[Error] Opening File failed (res://Data/player.json)")
-		get_tree().quit()
-	else:
-		var text = JSON.print(deck)
-		file.store_string(text)
-		file.close()
-	
 	if get_tree().change_scene("res://Main.tscn")!= OK:
 		push_error("[Error] Loading Scene failed (Main)")
 		get_tree().quit()
+
+
+func _on_Button2_pressed():
+	if deck.deck.size() >= 15: 
+		var file = File.new()
+		if file.open("res://Data/player.json", file.WRITE) != OK:
+			push_error("[Error] Opening File failed (res://Data/player.json)")
+			get_tree().quit()
+		else:
+			var text = JSON.print(deck)
+			file.store_string(text)
+			file.close()
+	else:
+		OS.alert("Votre deck n'a pas assez de cartes.\nIl faut 15 cartes au minimum.", "Deck incomplet")
