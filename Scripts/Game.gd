@@ -1,12 +1,14 @@
 extends Node2D
 
 var current_level = 2
+var sm = 2
 
 onready var deck = load_json("res://Data/player.json")
 
 onready var hand_node = get_node("Hand")
 onready var ennemies_node = get_node("Ennemies")
 onready var played_node = get_node("Played")
+onready var sm_node = get_node("SM")
 
 func _ready():
 	for i in range(0, 7):
@@ -14,6 +16,7 @@ func _ready():
 		hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + i* 150, 650))
 		deck.deck.remove(nb)
 	load_level(current_level)
+	sm_node.text = "SM : "+str(sm)
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -22,8 +25,11 @@ func _input(event):
 				var card = hand_node.get_child(cardid)
 				var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
 				if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event.position):
+					if sm > 0:
+						sm -= 1
 						played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
 						card.queue_free()
+						sm_node.text = "SM : "+str(sm)
 					break
 
 func load_level(level):
