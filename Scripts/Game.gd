@@ -1,27 +1,30 @@
 extends Node2D
 
-var hand_cards = []
 var current_level = 2
 
 onready var deck = load_json("res://Data/player.json")
 
 onready var hand_node = get_node("Hand")
 onready var ennemies_node = get_node("Ennemies")
+onready var played_node = get_node("Played")
 
 func _ready():
-	for _i in range(0, 7):
+	for i in range(0, 7):
 		var nb = rand_range(0, deck.deck.size())
-		hand_cards.append(deck.cards[deck.deck[nb]])
+		hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + i* 150, 650))
 		deck.deck.remove(nb)
-	update_hand()
 	load_level(current_level)
-	
-func update_hand():
-	for child in hand_node.get_children():
-		child.queue_free()
-	
-	for cardid in range(0, hand_cards.size()):
-		hand_node.add_child(create_card(hand_cards[cardid], 200 + cardid* 150, 650))
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.doubleclick:
+			for cardid in range(hand_node.get_child_count()):
+				var card = hand_node.get_child(cardid)
+				var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
+				if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event.position):
+						played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
+						card.queue_free()
+					break
 
 func load_level(level):
 	for child in ennemies_node.get_children():
