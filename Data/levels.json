@@ -1,5 +1,17 @@
 [
-    ["sylkabe"],
-    ["lyos", "fiano"],
-    ["hugo", "eleisya", "aehrin"]
+    {
+        "name": "Marée Noire", 
+        "ennemies": ["sylkabe"],
+        "life": 10
+    },
+    {
+        "name": "Aros, Pirate",
+        "ennemies": ["lyos", "fiano"],
+        "life": 15
+    },
+    {
+        "name": "Nid de Noyés",
+        "ennemies": ["hugo", "eleisya", "aehrin"],
+        "life": 20
+    }
 ]
