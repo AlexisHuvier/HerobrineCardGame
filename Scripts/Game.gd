@@ -4,6 +4,9 @@ var current_level = 2
 var sm = 2
 var life_ennemy = 1
 var life_player = 20
+var player_state = true
+var player_move = {}
+var current_select = null
 
 onready var deck = load_json("res://Data/player.json")
 
@@ -15,6 +18,7 @@ onready var lvl_node = get_node("LVL")
 onready var name_node = get_node("Name")
 onready var life_ennemy_node = get_node("LifeEnnemy")
 onready var life_player_node = get_node("LifePlayer")
+onready var endtourbutton_node = get_node("EndTourButton")
 
 func _ready():
 	for i in range(0, 7):
@@ -25,21 +29,47 @@ func _ready():
 	sm_node.text = "SM : "+str(sm)
 	lvl_node.text = "Niveau : "+str(current_level+1)
 	life_player_node.text = "Vie : "+str(life_player)
-	
 
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
 			for cardid in range(hand_node.get_child_count()):
 				var card = hand_node.get_child(cardid)
-				var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
-				if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event.position):
-					if sm > 0:
+				if card_collide_pos(event.position, card):
+					if sm > 0 && player_state:
 						sm -= 1
 						played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
 						card.queue_free()
 						sm_node.text = "SM : "+str(sm)
-					break
+					return
+			for cardid in range(played_node.get_child_count()):
+				var card = played_node.get_child(cardid)
+				if card_collide_pos(event.position, card):
+					if player_state:
+						if current_select == card:
+							card.get_node("Sprite").modulate = Color(1, 1, 1)
+							current_select = null
+						else:
+							card.get_node("Sprite").modulate = Color(1.5, 1.5, 1.5)
+							if current_select != null:
+								current_select.get_node("Sprite").modulate = Color(1, 1, 1)
+							current_select = card
+					return
+			for cardid in range(ennemies_node.get_child_count()):
+				var card = ennemies_node.get_child(cardid)
+				if card_collide_pos(event.position, card):
+					if player_state:
+						if current_select != null:
+							player_move[current_select] = card
+							current_select.get_node("Sprite").modulate = Color(1, 1, 1)
+							current_select = null 
+					return
+				
+func card_collide_pos(event_position, card):
+	var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
+	if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event_position):
+		return true
+	return false
 
 func load_level(level):
 	for child in ennemies_node.get_children():
@@ -75,3 +105,9 @@ func load_json(jsonfile):
 			get_tree().quit()
 		else:
 			return json.result
+
+func _on_EndTourButton_pressed():
+	if player_state:
+		player_state = false
+		endtourbutton_node.disabled = true
+		print(player_move)
