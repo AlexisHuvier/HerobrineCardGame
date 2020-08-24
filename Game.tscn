@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 
@@ -36,6 +36,13 @@ font_path = "res://Assets/OpenSans-Regular.ttf"
 [sub_resource type="DynamicFont" id=10]
 size = 20
 font_data = SubResource( 9 )
+
+[sub_resource type="DynamicFontData" id=11]
+font_path = "res://Assets/OpenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=12]
+size = 40
+font_data = SubResource( 11 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -108,6 +115,30 @@ margin_right = 684.0
 margin_bottom = 792.0
 custom_fonts/font = SubResource( 10 )
 text = "Fin Tour"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Victoire" type="Label" parent="."]
+visible = false
+margin_left = 551.628
+margin_top = 335.677
+margin_right = 722.628
+margin_bottom = 390.677
+custom_fonts/font = SubResource( 12 )
+text = "VICTOIRE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Defaite" type="Label" parent="."]
+visible = false
+margin_left = 561.0
+margin_top = 336.0
+margin_right = 713.0
+margin_bottom = 391.0
+custom_fonts/font = SubResource( 12 )
+text = "DEFAITE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
