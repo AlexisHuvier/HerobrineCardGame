@@ -1,6 +1,6 @@
 extends Node2D
 
-var current_level = 1
+var current_level = 0
 var sm = 2
 var life_ennemy = 1
 var life_player = 20
@@ -110,11 +110,26 @@ func _on_EndTourButton_pressed():
 	if player_state:
 		player_state = false
 		endtourbutton_node.disabled = true
+		
+		#Apply Player Moves
 		for i in player_move:
 			player_move[i].card_json.defense -= i.card_json.attack
 			if player_move[i].card_json.defense <= 0:
+				ennemies_node.remove_child(player_move[i])
 				player_move[i].queue_free()
+				
+		#Attack Ennemy if he doesn't have played cards
+		if ennemies_node.get_child_count() == 0:
+			for i in played_node.get_children():
+				if not player_move.has(i):
+					life_ennemy -= i.card_json.attack
+					life_ennemy_node.text = "Vie : "+str(life_ennemy)
+				
 		if life_ennemy <= 0:
 			get_node("Victoire").visible = true
-		if life_player <= 0:
+		elif life_player <= 0:
 			get_node("Defaite").visible = true
+		else:
+			player_move = {}
+			player_state = true
+			endtourbutton_node.disabled = false
