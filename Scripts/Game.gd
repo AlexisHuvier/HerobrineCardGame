@@ -7,6 +7,7 @@ var life_player = 20
 var player_state = true
 var player_move = {}
 var current_select = null
+var rnd = 0
 
 onready var deck = load_json("res://Data/player.json")
 
@@ -138,3 +139,6 @@ func _on_EndTourButton_pressed():
 			player_move = {}
 			player_state = true
 			endtourbutton_node.disabled = false
+			rnd += 1
+			sm = rnd + 2
+			sm_node.text = "SM : "+str(sm)
