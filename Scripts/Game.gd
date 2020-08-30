@@ -7,6 +7,7 @@ var life_player = 20
 var player_state = true
 var player_move = {}
 var current_select = null
+var level_ennemies = null
 var rnd = 0
 
 onready var deck = load_json("res://Data/player.json")
@@ -22,11 +23,11 @@ onready var life_player_node = get_node("LifePlayer")
 onready var endtourbutton_node = get_node("EndTourButton")
 
 func _ready():
-	for i in range(0, 7):
+	for _i in range(0, 7):
 		var nb = rand_range(0, deck.deck.size())
-		hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + i* 150, 650))
+		hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
 		deck.deck.remove(nb)
-	load_level(current_level)
+	load_level()
 	sm_node.text = "SM : "+str(sm)
 	lvl_node.text = "Niveau : "+str(current_level+1)
 	life_player_node.text = "Vie : "+str(life_player)
@@ -72,17 +73,22 @@ func card_collide_pos(event_position, card):
 		return true
 	return false
 
-func load_level(level):
+func load_level():
 	for child in ennemies_node.get_children():
 		child.queue_free()
 	
 	var levels = load_json("res://Data/levels.json")
-	for i in range(0, levels[level].ennemies.size()):
-		ennemies_node.add_child(create_card(levels[level].ennemies[i], 200+i*150, 200, 0.45))
-	name_node.text = levels[level].name
+	level_ennemies = levels[current_level].ennemies
+	name_node.text = levels[current_level].name
 	name_node.rect_position = Vector2(640 - name_node.rect_size.x / 2, 14)
-	life_ennemy = levels[level].life
+	life_ennemy = levels[current_level].life
 	life_ennemy_node.text = "Vie : "+str(life_ennemy)
+	load_ennemies()
+	
+func load_ennemies():
+	if rnd < level_ennemies.size():
+		for i in range(0, level_ennemies[rnd].size()):
+			ennemies_node.add_child(create_card(level_ennemies[rnd][i], 200 + ennemies_node.get_child_count() * 150, 200, 0.45))
 
 func create_card(name, x, y, scale=0.5, rotation=0):
 	var card = load("res://Scenes/Card.tscn").instance()
@@ -136,9 +142,11 @@ func _on_EndTourButton_pressed():
 		elif life_player <= 0:
 			get_node("Defaite").visible = true
 		else:
+			print("oui")
 			player_move = {}
 			player_state = true
 			endtourbutton_node.disabled = false
 			rnd += 1
 			sm = rnd + 2
 			sm_node.text = "SM : "+str(sm)
+			load_ennemies()
