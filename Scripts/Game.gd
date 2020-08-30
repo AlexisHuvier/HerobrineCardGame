@@ -124,6 +124,11 @@ func _on_EndTourButton_pressed():
 				if not player_move.has(i):
 					life_ennemy -= i.card_json.attack
 					life_ennemy_node.text = "Vie : "+str(life_ennemy)
+		
+		if played_node.get_child_count() == 0:
+			for i in ennemies_node.get_children():
+				life_player -= i.card_json.attack
+				life_player_node.text = "Vie : "+str(life_player)
 				
 		if life_ennemy <= 0:
 			get_node("Victoire").visible = true
