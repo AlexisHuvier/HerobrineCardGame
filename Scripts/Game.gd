@@ -142,7 +142,6 @@ func _on_EndTourButton_pressed():
 		elif life_player <= 0:
 			get_node("Defaite").visible = true
 		else:
-			print("oui")
 			player_move = {}
 			player_state = true
 			endtourbutton_node.disabled = false
