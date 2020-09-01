@@ -147,5 +147,7 @@ func _on_EndTourButton_pressed():
 			endtourbutton_node.disabled = false
 			rnd += 1
 			sm = rnd + 2
+			if sm > 10:
+				sm = 10
 			sm_node.text = "SM : "+str(sm)
 			load_ennemies()
