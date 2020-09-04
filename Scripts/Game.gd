@@ -31,6 +31,14 @@ func _ready():
 	sm_node.text = "SM : "+str(sm)
 	lvl_node.text = "Niveau : "+str(current_level+1)
 	life_player_node.text = "Vie : "+str(life_player)
+	
+func render():
+	for i in range(hand_node.get_child_count()):
+		hand_node.get_child(i).position.x = 200 + i * 150
+	for i in range(played_node.get_child_count()):
+		played_node.get_child(i).position.x = 200 + i * 150
+	for i in range(ennemies_node.get_child_count()):
+		ennemies_node.get_child(i).position.x = 200 + i * 150
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
@@ -38,15 +46,13 @@ func _input(event):
 			for cardid in range(hand_node.get_child_count()):
 				var card = hand_node.get_child(cardid)
 				if card_collide_pos(event.position, card):
-					if sm > 0 && player_state:
+					if sm > 0 && player_state && played_node.get_child_count() < 7:
 						sm -= 1
-						if played_node.get_child_count() == 0:
-							played_node.add_child(create_card(card.card, 200, 400, 0.45))
-						else:
-							played_node.add_child(create_card(card.card, 
-							played_node.get_child(played_node.get_child_count() - 1).position.x + 150, 400, 0.45))
+						played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
+						hand_node.remove_child(card)
 						card.queue_free()
 						sm_node.text = "SM : "+str(sm)
+						render()
 					return
 		for cardid in range(played_node.get_child_count()):
 			var card = played_node.get_child(cardid)
@@ -131,6 +137,7 @@ func _on_EndTourButton_pressed():
 						player_move.erase(play)
 					played_node.remove_child(play)
 					play.queue_free()
+					render()
 			else:
 				life_player -= i.card_json.attack
 				life_player_node.text = "Vie : "+str(life_player)
@@ -141,6 +148,7 @@ func _on_EndTourButton_pressed():
 			if player_move[i].card_json.defense <= 0:
 				ennemies_node.remove_child(player_move[i])
 				player_move[i].queue_free()
+				render()
 				
 		#Attack Ennemy if he doesn't have played cards
 		if ennemies_node.get_child_count() == 0:
@@ -167,3 +175,4 @@ func _on_EndTourButton_pressed():
 				hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
 				deck.deck.remove(nb)
 			load_ennemies()
+			render()
