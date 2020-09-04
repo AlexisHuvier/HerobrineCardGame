@@ -159,8 +159,10 @@ func _on_EndTourButton_pressed():
 				
 		if life_ennemy <= 0:
 			get_node("Victoire").visible = true
-		elif life_player <= 0 or deck.deck.size() == 0:
+			get_node("NextButton").visible = true
+		elif life_player <= 0:
 			get_node("Defaite").visible = true
+			get_node("MenuButton").visible = true
 		else:
 			player_move = {}
 			player_state = true
@@ -176,3 +178,45 @@ func _on_EndTourButton_pressed():
 				deck.deck.remove(nb)
 			load_ennemies()
 			render()
+
+func _on_MenuButton_pressed():
+	if get_tree().change_scene("res://Main.tscn")!= OK:
+		push_error("[Error] Loading Scene failed (Main)")
+		get_tree().quit()
+
+func _on_NextButton_pressed():
+	current_level += 1
+	if current_level != 3:
+		for child in hand_node.get_children():
+			hand_node.remove_child(child)
+			child.queue_free()
+		for child in played_node.get_children():
+			played_node.remove_child(child)
+			child.queue_free()
+		for child in ennemies_node.get_children():
+			ennemies_node.remove_child(child)
+			child.queue_free()
+		
+		get_node("Victoire").visible = false
+		get_node("NextButton").visible = false
+		sm = 2
+		life_ennemy = 1
+		life_player = 20
+		player_state = true
+		endtourbutton_node.disabled = false
+		player_move = {}
+		current_select = null
+		level_ennemies = null
+		rnd = 0
+		deck = load_json("res://Data/player.json")
+		
+		for _i in range(0, 7):
+			var nb = rand_range(0, deck.deck.size())
+			hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
+			deck.deck.remove(nb)
+		load_level()
+		sm_node.text = "SM : "+str(sm)
+		lvl_node.text = "Niveau : "+str(current_level+1)
+		life_player_node.text = "Vie : "+str(life_player)
+	else:
+		get_node("NextButton").disabled = true
