@@ -158,4 +158,8 @@ func _on_EndTourButton_pressed():
 			if sm > 10:
 				sm = 10
 			sm_node.text = "SM : "+str(sm)
+			if hand_node.get_child_count() < 7 and deck.deck.size():
+				var nb = rand_range(0, deck.deck.size())
+				hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
+				deck.deck.remove(nb)
 			load_ennemies()
