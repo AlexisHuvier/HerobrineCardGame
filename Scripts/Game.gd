@@ -33,39 +33,43 @@ func _ready():
 	life_player_node.text = "Vie : "+str(life_player)
 
 func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.doubleclick:
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		if event.doubleclick:
 			for cardid in range(hand_node.get_child_count()):
 				var card = hand_node.get_child(cardid)
 				if card_collide_pos(event.position, card):
 					if sm > 0 && player_state:
 						sm -= 1
-						played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
+						if played_node.get_child_count() == 0:
+							played_node.add_child(create_card(card.card, 200, 400, 0.45))
+						else:
+							played_node.add_child(create_card(card.card, 
+							played_node.get_child(played_node.get_child_count() - 1).position.x + 150, 400, 0.45))
 						card.queue_free()
 						sm_node.text = "SM : "+str(sm)
 					return
-			for cardid in range(played_node.get_child_count()):
-				var card = played_node.get_child(cardid)
-				if card_collide_pos(event.position, card):
-					if player_state:
-						if current_select == card:
-							card.get_node("Sprite").modulate = Color(1, 1, 1)
-							current_select = null
-						else:
-							card.get_node("Sprite").modulate = Color(1.5, 1.5, 1.5)
-							if current_select != null:
-								current_select.get_node("Sprite").modulate = Color(1, 1, 1)
-							current_select = card
-					return
-			for cardid in range(ennemies_node.get_child_count()):
-				var card = ennemies_node.get_child(cardid)
-				if card_collide_pos(event.position, card):
-					if player_state:
+		for cardid in range(played_node.get_child_count()):
+			var card = played_node.get_child(cardid)
+			if card_collide_pos(event.position, card):
+				if player_state:
+					if current_select == card:
+						card.get_node("Sprite").modulate = Color(1, 1, 1)
+						current_select = null
+					else:
+						card.get_node("Sprite").modulate = Color(1.5, 1.5, 1.5)
 						if current_select != null:
-							player_move[current_select] = card
 							current_select.get_node("Sprite").modulate = Color(1, 1, 1)
-							current_select = null 
-					return
+						current_select = card
+				return
+		for cardid in range(ennemies_node.get_child_count()):
+			var card = ennemies_node.get_child(cardid)
+			if card_collide_pos(event.position, card):
+				if player_state:
+					if current_select != null:
+						player_move[current_select] = card
+						current_select.get_node("Sprite").modulate = Color(1, 1, 1)
+						current_select = null 
+				return
 				
 func card_collide_pos(event_position, card):
 	var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
