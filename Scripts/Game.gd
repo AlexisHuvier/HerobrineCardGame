@@ -147,7 +147,7 @@ func _on_EndTourButton_pressed():
 				
 		if life_ennemy <= 0:
 			get_node("Victoire").visible = true
-		elif life_player <= 0:
+		elif life_player <= 0 or deck.deck.size() == 0:
 			get_node("Defaite").visible = true
 		else:
 			player_move = {}
