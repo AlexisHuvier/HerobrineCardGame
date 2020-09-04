@@ -6,12 +6,12 @@
     },
     {
         "name": "Aros, Pirate",
-        "ennemies": ["lyos", "fiano"],
+        "ennemies": [["lyos", "fiano"]],
         "life": 15
     },
     {
         "name": "Nid de Noyés",
-        "ennemies": ["hugo", "eleisya", "aehrin"],
+        "ennemies": [["hugo", "eleisya"], ["aehrin"]],
         "life": 20
     }
 ]
