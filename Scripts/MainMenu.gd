@@ -41,8 +41,8 @@ func _process(_delta):
 				current = 1
 
 func _on_Button_pressed():
-	if get_tree().change_scene("res://Game.tscn") != OK:
-		push_error("[Error] Loading Scene failed (Game)")
+	if get_tree().change_scene("res://Scenes/Story.tscn") != OK:
+		push_error("[Error] Loading Scene failed (Story)")
 		get_tree().quit()
 
 
