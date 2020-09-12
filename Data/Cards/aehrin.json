@@ -4,13 +4,7 @@
     "attack": 1,
     "defense": 1,
     "infos_display": {
-        "Informations": {
-            "Le personnage": "Aehrin est une chimere.",
-            "Histoire": "Elle est triste",
-            "Avantages": "Bonus de combat"
-        },
-        "Stats": {
-            "Statistiques": "Attaque: 1\nDefense: 1"
-        }
+        "Informations": ["Aehrin est une chimère.", "Elle est triste.", "", "Comme toutes les chimères, elle est très rapide."],
+        "Statistiques": ["Attaque : 1", "Défense : 1"]
     }
 }
