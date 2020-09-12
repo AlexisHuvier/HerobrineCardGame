@@ -30,6 +30,7 @@ func _input(event):
 			for cardid in range(cards.get_child_count()):
 				var card = cards.get_child(cardid)
 				var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
+				pos.y += cards.position.y
 				if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event.position):
 					var find = false
 					for cid in range(deck.deck.size()):
@@ -82,15 +83,20 @@ func create_card(name, x = null, y = null, scale=0.5, rotation=0):
 
 
 func _on_Button_pressed():
-	var file = File.new()
-	if file.open("res://Data/player.json", file.WRITE) != OK:
-		push_error("[Error] Opening File failed (res://Data/player.json)")
-		get_tree().quit()
-	else:
-		var text = JSON.print(deck)
-		file.store_string(text)
-		file.close()
-	
 	if get_tree().change_scene("res://Main.tscn")!= OK:
 		push_error("[Error] Loading Scene failed (Main)")
 		get_tree().quit()
+
+
+func _on_Button2_pressed():
+	if deck.deck.size() >= 15: 
+		var file = File.new()
+		if file.open("res://Data/player.json", file.WRITE) != OK:
+			push_error("[Error] Opening File failed (res://Data/player.json)")
+			get_tree().quit()
+		else:
+			var text = JSON.print(deck)
+			file.store_string(text)
+			file.close()
+	else:
+		OS.alert("Votre deck n'a pas assez de cartes.\nIl faut 15 cartes au minimum.", "Deck incomplet")
