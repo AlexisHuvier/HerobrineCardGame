@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg3.png-e2061d5ffdbb3747104659579cb0f161.stex"
+path="res://.import/card_info_button.png-45e48a58e36f95722d0bf237c22a7f4e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/images/background/bg3.png"
-dest_files=[ "res://.import/bg3.png-e2061d5ffdbb3747104659579cb0f161.stex" ]
+source_file="res://Assets/Images/card_info_button.png"
+dest_files=[ "res://.import/card_info_button.png-45e48a58e36f95722d0bf237c22a7f4e.stex" ]
 
 [params]
 

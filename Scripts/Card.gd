@@ -39,15 +39,15 @@ func load_card(name): #load data from JSON
 func load_texture():
 	var texture = ImageTexture.new()
 	if ("texture" in card_json && card_json["texture"] != null):
-		var image_path = "res://Assets/" + card_json["texture"] + ".png"
+		var image_path = "res://Assets/Images/Cards/" + card_json["texture"] + ".png"
 		texture = load(image_path)
 		if texture == null:
 			push_error("[Error] Opening File failed (" + image_path + ")")
 			get_tree().quit()
 		else:
 			get_node("Sprite").set_texture(texture)
-			return (1)
-	return (0)
+			return 1
+	return 0
 
 
 func _on_Area2D_mouse_entered(): #mouse enter card area

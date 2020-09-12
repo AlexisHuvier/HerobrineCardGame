@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/basic_card.png-6f8325827045ca3dcceefbdb81111100.stex"
+path="res://.import/aehrin_card.png-8cc150f63d11bdc66f521e577d61b4b0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/basic_card.png"
-dest_files=[ "res://.import/basic_card.png-6f8325827045ca3dcceefbdb81111100.stex" ]
+source_file="res://Assets/Images/Cards/aehrin_card.png"
+dest_files=[ "res://.import/aehrin_card.png-8cc150f63d11bdc66f521e577d61b4b0.stex" ]
 
 [params]
 
