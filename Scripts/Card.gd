@@ -79,9 +79,9 @@ func _on_InfoButtonArea2D_mouse_exited():
 	mouse_subjective_position = "in_card"
 	node.set_scale(scale)
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventMouseButton && mouse_subjective_position == "in_info":
 		var info = load("res://Scenes/TabsBox.tscn").instance()
 		if ("infos_display" in card_json):
 			info.load_tabs_window(card_json["infos_display"])
-			get_parent().add_child(info)
+			get_parent().get_parent().add_child(info)
