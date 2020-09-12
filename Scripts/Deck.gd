@@ -29,9 +29,9 @@ func _input(event):
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
 			for cardid in range(cards.get_child_count()):
 				var card = cards.get_child(cardid)
-				var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
+				var pos = card.position - (card.get_node("Sprite").texture.get_size() * (card.scale.x / 2))
 				pos.y += cards.position.y
-				if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event.position):
+				if Rect2(pos, card.get_node("Sprite").texture.get_size() * card.scale.x).has_point(event.position):
 					var find = false
 					for cid in range(deck.deck.size()):
 						if deck.deck[cid] == cardid:

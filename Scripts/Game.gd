@@ -78,8 +78,8 @@ func _input(event):
 				return
 				
 func card_collide_pos(event_position, card):
-	var pos = card.position - (card.get_node("Sprite").texture.get_size() * 0.25)
-	if Rect2(pos, card.get_node("Sprite").texture.get_size() * 0.5).has_point(event_position):
+	var pos = card.position - (card.get_node("Sprite").texture.get_size() * (card.scale.x / 2))
+	if Rect2(pos, card.get_node("Sprite").texture.get_size() * card.scale.x).has_point(event_position):
 		return true
 	return false
 
