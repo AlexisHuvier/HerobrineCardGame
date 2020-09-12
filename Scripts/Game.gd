@@ -41,19 +41,18 @@ func render():
 		ennemies_node.get_child(i).position.x = 200 + i * 150
 
 func _input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		if event.doubleclick:
-			for cardid in range(hand_node.get_child_count()):
-				var card = hand_node.get_child(cardid)
-				if card_collide_pos(event.position, card):
-					if sm > 0 && player_state && played_node.get_child_count() < 7:
-						sm -= 1
-						played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
-						hand_node.remove_child(card)
-						card.queue_free()
-						sm_node.text = "SM : "+str(sm)
-						render()
-					return
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed and event.doubleclick:
+		for cardid in range(hand_node.get_child_count()):
+			var card = hand_node.get_child(cardid)
+			if card_collide_pos(event.position, card):
+				if sm > 0 && player_state && played_node.get_child_count() < 7:
+					sm -= 1
+					played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
+					hand_node.remove_child(card)
+					card.queue_free()
+					sm_node.text = "SM : "+str(sm)
+					render()
+				return
 		for cardid in range(played_node.get_child_count()):
 			var card = played_node.get_child(cardid)
 			if card_collide_pos(event.position, card):
