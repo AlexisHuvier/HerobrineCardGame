@@ -83,7 +83,7 @@ func create_card(name, x = null, y = null, scale=0.5, rotation=0):
 
 
 func _on_Button_pressed():
-	if get_tree().change_scene("res://Main.tscn")!= OK:
+	if get_tree().change_scene("res://Scenes/Main.tscn")!= OK:
 		push_error("[Error] Loading Scene failed (Main)")
 		get_tree().quit()
 
