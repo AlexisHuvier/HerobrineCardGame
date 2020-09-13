@@ -1,6 +1,12 @@
 {
     "name": "Hugo",
     "texture": null,
-    "attack": 1,
-    "defense": 1
+    "attack": 2,
+    "defense": 2,
+    "initiative": 2,
+    "SM": 2,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Attaque : 2", "Défense : 2", "Initiative : 2", "Cout SM : 2"]
+    }
 }

@@ -1,6 +1,12 @@
 {
     "name": "Lyos",
     "texture": null,
-    "attack": 1,
-    "defense": 1
+    "attack": 2,
+    "defense": 2,
+    "initiative": 3,
+    "SM": 3,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Attaque : 2", "Défense : 2", "Initiative : 3", "Cout SM : 3"]
+    }
 }

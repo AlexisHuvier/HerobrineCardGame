@@ -2,5 +2,11 @@
     "name": "Eleisya",
     "texture": null,
     "attack": 1,
-    "defense": 1
+    "defense": 1,
+    "initiative": 3,
+    "SM": 1,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Attaque : 1", "Défense : 1", "Initiative : 3", "Cout SM : 1"]
+    }
 }
