@@ -45,8 +45,8 @@ func _input(event):
 		for cardid in range(hand_node.get_child_count()):
 			var card = hand_node.get_child(cardid)
 			if card_collide_pos(event.position, card):
-				if sm > 0 && player_state && played_node.get_child_count() < 7:
-					sm -= 1
+				if sm >= card.card_json["SM"] && player_state && played_node.get_child_count() < 7:
+					sm -= card.card_json["SM"]
 					played_node.add_child(create_card(card.card, 200 + played_node.get_child_count() * 150, 400, 0.45))
 					hand_node.remove_child(card)
 					card.queue_free()
