@@ -40,6 +40,7 @@ func _input(event):
 							break
 					if not find:
 						deck.deck.append(cardid)
+						deck.deck.sort()
 					render()
 					break
 		elif event.button_index == BUTTON_WHEEL_UP:
