@@ -20,6 +20,7 @@ func _ready():
 			get_node("Title").set_text(card_json["name"])
 		else:
 			get_node("Title").set_text("")
+		get_node("Label").set_text(str(card_json["SM"]))
 
 func load_card(name): #load data from JSON
 	var file = File.new()
