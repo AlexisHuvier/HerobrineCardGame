@@ -127,27 +127,37 @@ func _on_EndTourButton_pressed():
 		player_state = false
 		endtourbutton_node.disabled = true
 		
+		var moves = []
+		
 		for i in ennemies_node.get_children():
 			if played_node.get_child_count() != 0:
-				var play = played_node.get_children()[0]
-				play.card_json.defense -= i.card_json.attack
-				if play.card_json.defense <= 0:
-					if player_move.has(play):
-						player_move.erase(play)
-					played_node.remove_child(play)
-					play.queue_free()
-					render()
+				moves.append([i, played_node.get_children()[0]])
 			else:
 				life_player -= i.card_json.attack
 				life_player_node.text = "Vie : "+str(life_player)
 		
-		#Apply Player Moves
 		for i in player_move:
-			player_move[i].card_json.defense -= i.card_json.attack
-			if player_move[i].card_json.defense <= 0:
-				ennemies_node.remove_child(player_move[i])
-				player_move[i].queue_free()
-				render()
+			moves.append([i, player_move[i]])
+		
+		for k in range(1, len(moves)):
+			var temp = moves[k]
+			var j = k
+			while j > 0 and temp[0].card_json.initiative > moves[j-1][0].card_json.initiative:
+				moves[j] = moves[j-1]
+				j -= 1
+			moves[j] = temp
+			
+		var dont_use = []
+		
+		for i in range(len(moves)):
+			if not dont_use.has(i):
+				moves[i][1].card_json.defense -= moves[i][0].card_json.attack
+				if moves[i][1].card_json.defense <= 0:
+					for j in range(i+1, len(moves)):
+						if moves[j][0] == moves[i][1]:
+							dont_use.append(j)
+					moves[i][1].queue_free()
+					render()
 				
 		#Attack Ennemy if he doesn't have played cards
 		if ennemies_node.get_child_count() == 0:
