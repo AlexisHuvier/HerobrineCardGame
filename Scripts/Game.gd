@@ -179,7 +179,7 @@ func _on_EndTourButton_pressed():
 			render()
 
 func _on_MenuButton_pressed():
-	if get_tree().change_scene("res://Main.tscn")!= OK:
+	if get_tree().change_scene("res://Scenes/Main.tscn")!= OK:
 		push_error("[Error] Loading Scene failed (Main)")
 		get_tree().quit()
 
