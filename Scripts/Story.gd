@@ -11,7 +11,7 @@ onready var text = get_node("Text")
 func _process(_delta):
 	if text.rect_position.y > -text.rect_size.y+800:
 		time += 1
-		if time >= 2:
+		if time >= 1:
 			time = 0
 			text.rect_position.y -= 1
 	
