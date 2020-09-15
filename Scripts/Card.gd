@@ -84,5 +84,5 @@ func _input(event):
 	if event is InputEventMouseButton && mouse_subjective_position == "in_info":
 		var info = load("res://Scenes/TabsBox.tscn").instance()
 		if ("infos_display" in card_json):
-			info.load_tabs_window(card_json["infos_display"])
+			info.load_tabs_window(card_json)
 			get_parent().get_parent().add_child(info)

@@ -7,6 +7,6 @@
     "SM": 3,
     "infos_display": {
         "Informations": ["INCOMING"],
-        "Statistiques": ["Attaque : 2", "Défense : 2", "Initiative : 3", "Cout SM : 3"]
+        "Statistiques": ["Vie : %d%",  "Cout SM : %sm%", "Attaque : %a%", "Initiative : %i%"]
     }
 }
