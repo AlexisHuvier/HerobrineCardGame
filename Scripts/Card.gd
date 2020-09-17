@@ -16,10 +16,7 @@ func _ready():
 	save_info_button_scale = get_node("Sprite/InfoButtonSprite").get_scale()
 	card_json = load_card(card)
 	if card_json != null:
-		if !(load_texture()):
-			get_node("Title").set_text(card_json["name"])
-		else:
-			get_node("Title").set_text("")
+		load_texture()
 		get_node("Label").set_text(str(card_json["SM"]))
 
 func load_card(name): #load data from JSON
@@ -46,7 +43,7 @@ func load_texture():
 			push_error("[Error] Opening File failed (" + image_path + ")")
 			get_tree().quit()
 		else:
-			get_node("Sprite").set_texture(texture)
+			get_node("SpriteCard").set_texture(texture)
 			return 1
 	return 0
 

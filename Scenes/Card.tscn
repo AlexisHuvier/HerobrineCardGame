@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Card.gd" type="Script" id=1]
-[ext_resource path="res://Assets/images/basic_card.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/basic_card.png" type="Texture" id=2]
 [ext_resource path="res://Assets/images/card_info_button.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/back_card.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 144, 208 )
@@ -14,19 +15,10 @@ radius = 128.0
 font_path = "res://Assets/OpenSans-Regular.ttf"
 
 [sub_resource type="DynamicFont" id=6]
-size = 30
-outline_size = 3
-outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 5 )
-
-[sub_resource type="DynamicFontData" id=3]
-font_path = "res://Assets/OpenSans-Regular.ttf"
-
-[sub_resource type="DynamicFont" id=4]
 size = 32
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 3 )
+font_data = SubResource( 5 )
 
 [node name="Card" type="Node2D"]
 position = Vector2( 392, 296 )
@@ -35,6 +27,11 @@ __meta__ = {
 "_edit_group_": true
 }
 card = "aehrin"
+
+[node name="BackSprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="SpriteCard" type="Sprite" parent="."]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -61,25 +58,12 @@ __meta__ = {
 [node name="InfoButtonCollisionShape2D" type="CollisionShape2D" parent="Sprite/InfoButtonSprite/InfoButtonArea2D"]
 shape = SubResource( 2 )
 
-[node name="Title" type="Label" parent="."]
-margin_left = -57.0
-margin_top = -201.0
-margin_right = 74.9998
-margin_bottom = -159.0
-custom_fonts/font = SubResource( 6 )
-text = "Name"
-align = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Label" type="Label" parent="."]
 margin_left = 112.0
 margin_top = -205.0
 margin_right = 152.0
 margin_bottom = -160.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "X"
 __meta__ = {
 "_edit_use_anchors_": false
