@@ -1,6 +1,6 @@
 {
     "name": "Hugo",
-    "texture": null,
+    "texture": "hugo_card",
     "attack": 2,
     "defense": 2,
     "initiative": 2,

@@ -1,6 +1,6 @@
 {
     "name": "Lyos",
-    "texture": null,
+    "texture": "lyos_card",
     "attack": 2,
     "defense": 2,
     "initiative": 3,

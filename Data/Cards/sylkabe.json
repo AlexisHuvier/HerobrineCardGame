@@ -1,6 +1,6 @@
 {
     "name": "Sylkabe",
-    "texture": null,
+    "texture": "sylkabe_card",
     "attack": 3,
     "defense": 3,
     "initiative": 2,

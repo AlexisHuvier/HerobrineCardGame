@@ -1,6 +1,6 @@
 {
     "name": "Eleisya",
-    "texture": null,
+    "texture": "eleisya_card",
     "attack": 1,
     "defense": 1,
     "initiative": 3,
