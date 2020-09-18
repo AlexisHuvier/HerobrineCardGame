@@ -18,7 +18,8 @@ func render():
 	for cardid in deck.cards.size():
 		var card = create_card(deck.cards[cardid], 115 + cardid % 5 * 175, 200 + cardid / 5 * 225)
 		if cardid in deck.deck:
-			card.get_node("Sprite").modulate = Color(0.5, 0.5, 0.5)
+			card.get_node("SpriteCard").modulate = Color(0.5, 0.5, 0.5)
+			card.get_node("BackSprite").modulate = Color(0.5, 0.5, 0.5)
 		cards.add_child(card)
 		
 	for cardid in deck.deck.size():
@@ -29,9 +30,9 @@ func _input(event):
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
 			for cardid in range(cards.get_child_count()):
 				var card = cards.get_child(cardid)
-				var pos = card.position - (card.get_node("Sprite").texture.get_size() * (card.scale.x / 2))
+				var pos = card.position - (card.get_node("BackSprite").texture.get_size() * (card.scale.x / 2))
 				pos.y += cards.position.y
-				if Rect2(pos, card.get_node("Sprite").texture.get_size() * card.scale.x).has_point(event.position):
+				if Rect2(pos, card.get_node("BackSprite").texture.get_size() * card.scale.x).has_point(event.position):
 					var find = false
 					for cid in range(deck.deck.size()):
 						if deck.deck[cid] == cardid:
