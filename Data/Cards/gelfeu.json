@@ -1,0 +1,12 @@
+{
+    "name": "Gelfeu",
+    "texture": null,
+    "attack": 5,
+    "defense": 3,
+    "initiative": 1,
+    "SM": 0,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Vie : %d%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}

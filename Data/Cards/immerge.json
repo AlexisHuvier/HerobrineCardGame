@@ -1,0 +1,12 @@
+{
+    "name": "Immergé",
+    "texture": "immerge_card",
+    "attack": 2,
+    "defense": 2,
+    "initiative": 1,
+    "SM": 0,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Vie : %d%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}

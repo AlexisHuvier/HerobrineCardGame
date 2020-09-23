@@ -1,7 +1,7 @@
 [
     {
         "name": "Marée Noire", 
-        "ennemies": [["sylkabe"], ["sylkabe"]],
+        "ennemies": [["enloyan", "immerge", "arachnide"], ["sylkabe"]],
         "life": 10
     },
     {

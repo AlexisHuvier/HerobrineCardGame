@@ -1,0 +1,12 @@
+{
+    "name": "Rongeroche",
+    "texture": null,
+    "attack": 1,
+    "defense": 1,
+    "initiative": 2,
+    "SM": 0,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Vie : %d%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}

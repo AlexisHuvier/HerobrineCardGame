@@ -1,0 +1,12 @@
+{
+    "name": "Siffleur",
+    "texture": null,
+    "attack": 6,
+    "defense": 3,
+    "initiative": 2,
+    "SM": 0,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Vie : %d%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}

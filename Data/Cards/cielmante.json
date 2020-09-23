@@ -1,0 +1,12 @@
+{
+    "name": "Cielmante",
+    "texture": null,
+    "attack": 2,
+    "defense": 1,
+    "initiative": 5,
+    "SM": 0,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Vie : %d%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}

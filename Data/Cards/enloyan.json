@@ -1,0 +1,12 @@
+{
+    "name": "Enloyan",
+    "texture": "enloyan_card",
+    "attack": 4,
+    "defense": 2,
+    "initiative": 6,
+    "SM": 0,
+    "infos_display": {
+        "Informations": ["INCOMING"],
+        "Statistiques": ["Vie : %d%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}
