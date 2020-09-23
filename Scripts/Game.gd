@@ -58,12 +58,15 @@ func _input(event):
 			if card_collide_pos(event.position, card):
 				if player_state:
 					if current_select == card:
-						card.get_node("Sprite").modulate = Color(1, 1, 1)
+						card.get_node("SpriteCard").modulate = Color(1, 1, 1)
+						card.get_node("BackSprite").modulate = Color(1, 1, 1)
 						current_select = null
 					else:
-						card.get_node("Sprite").modulate = Color(1.5, 1.5, 1.5)
+						card.get_node("SpriteCard").modulate = Color(1.5, 1.5, 1.5)
+						card.get_node("BackSprite").modulate = Color(1.5, 1.5, 1.5)
 						if current_select != null:
-							current_select.get_node("Sprite").modulate = Color(1, 1, 1)
+							current_select.get_node("SpriteCard").modulate = Color(1, 1, 1)
+							current_select.get_node("BackSprite").modulate = Color(1, 1, 1)
 						current_select = card
 				return
 		for cardid in range(ennemies_node.get_child_count()):
