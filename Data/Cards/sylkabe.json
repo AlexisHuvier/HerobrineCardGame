@@ -1,6 +1,7 @@
 {
     "name": "Sylkabe",
     "texture": "sylkabe_card",
+    "texture_scale": 1.0,
     "attack": 3,
     "defense": 3,
     "initiative": 2,

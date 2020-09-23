@@ -44,6 +44,7 @@ func load_texture():
 			get_tree().quit()
 		else:
 			get_node("SpriteCard").set_texture(texture)
+			get_node("SpriteCard").scale = Vector2(card_json["texture_scale"], card_json["texture_scale"])
 			return 1
 	return 0
 

@@ -1,6 +1,7 @@
 {
     "name": "Guernei",
     "texture": null,
+    "texture_scale": 1.0,
     "attack": 2,
     "defense": 1,
     "initiative": 2,

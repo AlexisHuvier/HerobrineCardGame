@@ -1,6 +1,7 @@
 {
     "name": "Gelvase",
     "texture": null,
+    "texture_scale": 1.0,
     "attack": 4,
     "defense": 3,
     "initiative": 1,

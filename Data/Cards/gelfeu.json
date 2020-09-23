@@ -1,6 +1,7 @@
 {
     "name": "Gelfeu",
     "texture": null,
+    "texture_scale": 1.0,
     "attack": 5,
     "defense": 3,
     "initiative": 1,

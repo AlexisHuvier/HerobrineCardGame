@@ -1,6 +1,7 @@
 {
     "name": "Aehrin",
     "texture": "aehrin_card",
+    "texture_scale": 1.0,
     "attack": 4,
     "defense": 1,
     "initiative": 5,

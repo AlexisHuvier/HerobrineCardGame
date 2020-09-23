@@ -1,6 +1,7 @@
 {
     "name": "Lyos",
     "texture": "lyos_card",
+    "texture_scale": 1.0,
     "attack": 2,
     "defense": 2,
     "initiative": 3,
