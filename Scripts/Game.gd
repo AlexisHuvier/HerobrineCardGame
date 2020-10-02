@@ -75,7 +75,8 @@ func _input(event):
 				if player_state:
 					if current_select != null:
 						player_move[current_select] = card
-						current_select.get_node("Sprite").modulate = Color(1, 1, 1)
+						current_select.get_node("SpriteCard").modulate = Color(1, 1, 1)
+						current_select.get_node("BackSprite").modulate = Color(1, 1, 1)
 						current_select = null 
 				return
 				
