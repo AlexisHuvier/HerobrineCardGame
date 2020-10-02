@@ -1,0 +1,13 @@
+{
+    "name": "Aehrin",
+    "texture": "aehrin_card",
+    "texture_scale": 1.0,
+    "attack": 3,
+    "defense": 1,
+    "initiative": 5,
+    "SM": 3,
+    "infos_display": {
+        "Informations": ["Aehrin est une chimère.", "Elle est triste.", "", "Comme toutes les chimères, elle est très rapide."],
+        "Statistiques": ["Vie : %d%",  "Cout SM : %sm%", "Attaque : %a%", "Initiative : %i%"]
+    }
+}
