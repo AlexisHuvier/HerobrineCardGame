@@ -20,6 +20,10 @@ config/description="Jeu de cartes sur l'univers d'Herobrine"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Database="*res://Scripts/Database.gd"
+
 [display]
 
 window/size/width=1280

@@ -20,24 +20,13 @@ func _ready():
 		get_node("Label").set_text(str(card_json["SM"]))
 
 func load_card(name): #load data from JSON
-	var file = File.new()
-	var json_card_path = "res://Data/Cards/"+name+".json"
-	if file.open(json_card_path, file.READ) != OK:
-		push_error("[Error] Opening File failed (" + json_card_path + ")")
-		get_tree().quit()
-	else:
-		var text = file.get_as_text()
-		var json = JSON.parse(text)
-		if json.error != OK:
-			push_error("[Error] JSON Parsing failed : (" + json.error_line + ") " + json.error_string)
-			get_tree().quit()
-		else:
-			return json.result
+	return Database.db.select_rows("cards", "id = "+str(name), ["*"])[0]
 
 func load_texture():
 	var texture = ImageTexture.new()
-	if ("texture" in card_json && card_json["texture"] != null):
+	if (card_json["texture"] != null && card_json["texture"] != ""):
 		var image_path = "res://Assets/Images/Cards/" + card_json["texture"] + ".png"
+		print(image_path)
 		texture = load(image_path)
 		if texture == null:
 			push_error("[Error] Opening File failed (" + image_path + ")")

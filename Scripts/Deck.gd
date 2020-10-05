@@ -15,15 +15,18 @@ func render():
 	for child in deckcards.get_children():
 		child.queue_free()
 	
-	for cardid in deck.cards.size():
-		var card = create_card(deck.cards[cardid], 115 + cardid % 5 * 175, 200 + cardid / 5 * 225)
-		if cardid in deck.deck:
+	for cardid in range(deck.size()):
+		var card = create_card(deck[cardid], 115 + cardid % 5 * 175, 200 + cardid / 5 * 225)
+		var is_in_deck = Database.db.select_rows("player_card", "id_card = "+str(deck[cardid]), ["deck"])[0]
+		if is_in_deck:
 			card.get_node("SpriteCard").modulate = Color(0.5, 0.5, 0.5)
 			card.get_node("BackSprite").modulate = Color(0.5, 0.5, 0.5)
 		cards.add_child(card)
 		
-	for cardid in deck.deck.size():
-		deckcards.add_child(create_card(deck.cards[deck.deck[cardid]], 1100, 200 + cardid * 75))
+	for cardid in range(deck.size()):
+		var is_in_deck = Database.db.select_rows("player_card", "id_card = "+str(deck[cardid]), ["deck"])[0]
+		if is_in_deck:
+			deckcards.add_child(create_card(deck[cardid], 1100, 200 + cardid * 75))
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -60,23 +63,14 @@ func _input(event):
 					deckcards.position.y -= 10
 
 func load_deck():
-	var file = File.new()
-	if file.open("res://Data/player.json", file.READ) != OK:
-		push_error("[Error] Opening File failed (res://Data/player.json)")
-		get_tree().quit()
-	else:
-		var text = file.get_as_text()
-		file.close()
-		var json = JSON.parse(text)
-		if json.error != OK:
-			push_error("[Error] JSON Parsing failed : (" + json.error_line + ") " + json.error_string)
-			get_tree().quit()
-		else:
-			return json.result
+	cards = []
+	for i in Database.db.select_rows("player_card", "", ["id_card"]):
+		cards.append(i["id_card"])
+	return cards
 
-func create_card(name, x = null, y = null, scale=0.5, rotation=0):
+func create_card(id, x = null, y = null, scale=0.5, rotation=0):
 	var card = load("res://Scenes/Card.tscn").instance()
-	card.card = name
+	card.card = id
 	if x != null || y != null:
 		card.position = Vector2(x, y)
 	card.scale = Vector2(scale, scale)
