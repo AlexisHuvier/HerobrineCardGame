@@ -41,9 +41,13 @@ func _process(_delta):
 				current = 1
 
 func _on_Button_pressed():
-	if get_tree().change_scene("res://Scenes/Story.tscn") != OK:
-		push_error("[Error] Loading Scene failed (Story)")
-		get_tree().quit()
+	var nb = Database.db.select_rows("player_card", "deck = 1", ["*"])
+	if nb.size() >= 15:
+		if get_tree().change_scene("res://Scenes/Story.tscn") != OK:
+			push_error("[Error] Loading Scene failed (Story)")
+			get_tree().quit()
+	else:
+		OS.alert("Votre deck n'a pas assez de cartes.\nIl faut 15 cartes au minimum.", "Deck incomplet")
 
 
 func _on_Button2_pressed():
