@@ -11,22 +11,20 @@ func _ready():
 
 func render():
 	for child in cards.get_children():
+		cards.remove_child(child)
 		child.queue_free()
 	for child in deckcards.get_children():
+		deckcards.remove_child(child)
 		child.queue_free()
 	
 	for cardid in range(deck.size()):
 		var card = create_card(deck[cardid], 115 + cardid % 5 * 175, 200 + cardid / 5 * 225)
-		var is_in_deck = Database.db.select_rows("player_card", "id_card = "+str(deck[cardid]), ["deck"])[0]
-		if is_in_deck:
+		var player_card = Database.db.select_rows("player_card", "id = "+str(cardid+1), ["deck"])[0]
+		if player_card["deck"]:
 			card.get_node("SpriteCard").modulate = Color(0.5, 0.5, 0.5)
 			card.get_node("BackSprite").modulate = Color(0.5, 0.5, 0.5)
+			deckcards.add_child(create_card(deck[cardid], 1100, 200 + deckcards.get_child_count() * 75))
 		cards.add_child(card)
-		
-	for cardid in range(deck.size()):
-		var is_in_deck = Database.db.select_rows("player_card", "id_card = "+str(deck[cardid]), ["deck"])[0]
-		if is_in_deck:
-			deckcards.add_child(create_card(deck[cardid], 1100, 200 + cardid * 75))
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -36,15 +34,8 @@ func _input(event):
 				var pos = card.position - (card.get_node("BackSprite").texture.get_size() * (card.scale.x / 2))
 				pos.y += cards.position.y
 				if Rect2(pos, card.get_node("BackSprite").texture.get_size() * card.scale.x).has_point(event.position):
-					var find = false
-					for cid in range(deck.deck.size()):
-						if deck.deck[cid] == cardid:
-							deck.deck.remove(cid)
-							find = true
-							break
-					if not find:
-						deck.deck.append(cardid)
-						deck.deck.sort()
+					var player_card = Database.db.select_rows("player_card", "id = "+str(cardid+1), ["*"])[0]
+					Database.db.update_rows("player_card", "id = "+str(player_card["id"]), {"deck": 0 if player_card["deck"] else 1})
 					render()
 					break
 		elif event.button_index == BUTTON_WHEEL_UP:
@@ -82,17 +73,3 @@ func _on_Button_pressed():
 	if get_tree().change_scene("res://Scenes/Main.tscn")!= OK:
 		push_error("[Error] Loading Scene failed (Main)")
 		get_tree().quit()
-
-
-func _on_Button2_pressed():
-	if deck.deck.size() >= 15: 
-		var file = File.new()
-		if file.open("res://Data/player.json", file.WRITE) != OK:
-			push_error("[Error] Opening File failed (res://Data/player.json)")
-			get_tree().quit()
-		else:
-			var text = JSON.print(deck)
-			file.store_string(text)
-			file.close()
-	else:
-		OS.alert("Votre deck n'a pas assez de cartes.\nIl faut 15 cartes au minimum.", "Deck incomplet")

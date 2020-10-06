@@ -24,6 +24,10 @@ config/icon="res://icon.png"
 
 Database="*res://Scripts/Database.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=false
+
 [display]
 
 window/size/width=1280

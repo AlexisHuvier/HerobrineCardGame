@@ -26,7 +26,6 @@ func load_texture():
 	var texture = ImageTexture.new()
 	if (card_json["texture"] != null && card_json["texture"] != ""):
 		var image_path = "res://Assets/Images/Cards/" + card_json["texture"] + ".png"
-		print(image_path)
 		texture = load(image_path)
 		if texture == null:
 			push_error("[Error] Opening File failed (" + image_path + ")")
