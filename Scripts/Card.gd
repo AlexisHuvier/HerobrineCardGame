@@ -69,6 +69,6 @@ func _on_InfoButtonArea2D_mouse_exited():
 func _input(event):
 	if event is InputEventMouseButton && mouse_subjective_position == "in_info":
 		var info = load("res://Scenes/TabsBox.tscn").instance()
-		if ("infos_display" in card_json):
-			info.load_tabs_window(card_json)
-			get_parent().get_parent().add_child(info)
+		var info_json = Database.db.select_rows("info_card", "id = "+str(card_json["id"]), ["*"])[0]
+		info.load_tabs_window(info_json, card_json)
+		get_parent().get_parent().add_child(info)
