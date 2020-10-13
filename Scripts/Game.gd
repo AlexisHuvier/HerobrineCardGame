@@ -1,6 +1,6 @@
 extends Node2D
 
-var current_level = 0
+var current_level = 1
 var sm = 2
 var life_ennemy = 1
 var life_player = 20
@@ -10,7 +10,7 @@ var current_select = null
 var level_ennemies = null
 var rnd = 0
 
-onready var deck = load_json("res://Data/player.json")
+onready var deck = load_deck()
 
 onready var hand_node = get_node("Hand")
 onready var ennemies_node = get_node("Ennemies")
@@ -24,9 +24,9 @@ onready var endtourbutton_node = get_node("EndTourButton")
 
 func _ready():
 	for _i in range(0, 7):
-		var nb = rand_range(0, deck.deck.size())
-		hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
-		deck.deck.remove(nb)
+		var nb = rand_range(0, deck.size())
+		hand_node.add_child(create_card(deck[nb], 200 + hand_node.get_child_count() * 150, 650))
+		deck.remove(nb)
 	load_level()
 	sm_node.text = "SM : "+str(sm)
 	lvl_node.text = "Niveau : "+str(current_level+1)
@@ -90,11 +90,20 @@ func load_level():
 	for child in ennemies_node.get_children():
 		child.queue_free()
 	
-	var levels = load_json("res://Data/levels.json")
-	level_ennemies = levels[current_level].ennemies
-	name_node.text = levels[current_level].name
+	var level = Database.db.select_rows("levels", "id = "+str(current_level), ["*"])[0]
+	level_ennemies = []
+	for i in Database.db.select_rows("levels_cards", "id_level = "+str(current_level), ["*"]):
+		var ennemies = []
+		if i["id_card_1"] != 0:
+			ennemies.append(i["id_card_1"])
+		if i["id_card_2"] != 0:
+			ennemies.append(i["id_card_2"])
+		if i["id_card_3"] != 0:
+			ennemies.append(i["id_card_3"])
+		level_ennemies.append(ennemies)
+	name_node.text = level["name"]
 	name_node.rect_position = Vector2(640 - name_node.rect_size.x / 2, 14)
-	life_ennemy = levels[current_level].life
+	life_ennemy = level["life"]
 	life_ennemy_node.text = "Vie : "+str(life_ennemy)
 	load_ennemies()
 	
@@ -111,20 +120,12 @@ func create_card(name, x, y, scale=0.5, rotation=0):
 	card.rotation_degrees = rotation
 	return card
 
-func load_json(jsonfile):
-	var file = File.new()
-	if file.open(jsonfile, file.READ) != OK:
-		push_error("[Error] Opening File failed ("+jsonfile+")")
-		get_tree().quit()
-	else:
-		var text = file.get_as_text()
-		file.close()
-		var json = JSON.parse(text)
-		if json.error != OK:
-			push_error("[Error] JSON Parsing failed : (" + json.error_line + ") " + json.error_string)
-			get_tree().quit()
-		else:
-			return json.result
+func load_deck():
+	var cards = []
+	for i in Database.db.select_rows("player_card", "", ["*"]):
+		if i["deck"]:
+			cards.append(i["id_card"])
+	return cards
 
 func _on_EndTourButton_pressed():
 	if player_state:
@@ -177,10 +178,10 @@ func _on_EndTourButton_pressed():
 			if sm > 10:
 				sm = 10
 			sm_node.text = "SM : "+str(sm)
-			if hand_node.get_child_count() < 7 and deck.deck.size():
-				var nb = rand_range(0, deck.deck.size())
-				hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
-				deck.deck.remove(nb)
+			if hand_node.get_child_count() < 7 and deck.size():
+				var nb = rand_range(0, deck.size())
+				hand_node.add_child(create_card(deck[nb], 200 + hand_node.get_child_count() * 150, 650))
+				deck.remove(nb)
 			load_ennemies()
 			render()
 
@@ -191,7 +192,7 @@ func _on_MenuButton_pressed():
 
 func _on_NextButton_pressed():
 	current_level += 1
-	if current_level != 3:
+	if current_level != 4:
 		for child in hand_node.get_children():
 			hand_node.remove_child(child)
 			child.queue_free()
@@ -213,12 +214,12 @@ func _on_NextButton_pressed():
 		current_select = null
 		level_ennemies = null
 		rnd = 0
-		deck = load_json("res://Data/player.json")
+		deck = load_deck()
 		
 		for _i in range(0, 7):
-			var nb = rand_range(0, deck.deck.size())
-			hand_node.add_child(create_card(deck.cards[deck.deck[nb]], 200 + hand_node.get_child_count() * 150, 650))
-			deck.deck.remove(nb)
+			var nb = rand_range(0, deck.size())
+			hand_node.add_child(create_card(deck[nb], 200 + hand_node.get_child_count() * 150, 650))
+			deck.remove(nb)
 		load_level()
 		sm_node.text = "SM : "+str(sm)
 		lvl_node.text = "Niveau : "+str(current_level+1)
