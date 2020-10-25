@@ -1,6 +1,6 @@
 extends Node2D
 
-var current_level = 1
+var current_level = Database.player["current_level"]
 var sm = 2
 var life_ennemy = 1
 var life_player = 20
@@ -191,6 +191,7 @@ func _on_MenuButton_pressed():
 		get_tree().quit()
 
 func _on_NextButton_pressed():
+	Database.db.update_rows("player", "current_level = "+str(current_level), {"current_level": current_level+1})
 	current_level += 1
 	if current_level != 4:
 		for child in hand_node.get_children():
