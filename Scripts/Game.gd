@@ -29,7 +29,7 @@ func _ready():
 		deck.remove(nb)
 	load_level()
 	sm_node.text = "SM : "+str(sm)
-	lvl_node.text = "Niveau : "+str(current_level+1)
+	lvl_node.text = "Niveau : "+str(current_level)
 	life_player_node.text = "Vie : "+str(life_player)
 	
 func render():
@@ -223,7 +223,7 @@ func _on_NextButton_pressed():
 			deck.remove(nb)
 		load_level()
 		sm_node.text = "SM : "+str(sm)
-		lvl_node.text = "Niveau : "+str(current_level+1)
+		lvl_node.text = "Niveau : "+str(current_level)
 		life_player_node.text = "Vie : "+str(life_player)
 	else:
 		get_node("NextButton").disabled = true
